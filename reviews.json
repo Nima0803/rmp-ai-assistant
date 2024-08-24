@@ -1,0 +1,298 @@
+{
+  "professor_reviews": [
+    {
+      "name": "Dr. Sarah Johnson",
+      "subject": "Physics",
+      "rating": 4.5,
+      "comment": "Excellent at explaining complex concepts. Engaging lectures!"
+    },
+    {
+      "name": "Prof. Michael Lee",
+      "subject": "Literature",
+      "rating": 3.0,
+      "comment": "Knowledgeable, but assignments can be unclear."
+    },
+    {
+      "name": "Dr. Emily Chen",
+      "subject": "Computer Science",
+      "rating": 4.8,
+      "comment": "Fantastic teacher! Always available for extra help."
+    },
+    {
+      "name": "Prof. Robert Taylor",
+      "subject": "History",
+      "rating": 2.5,
+      "comment": "Lectures are dry. Needs more interactive elements."
+    },
+    {
+      "name": "Dr. Amanda Rodriguez",
+      "subject": "Biology",
+      "rating": 4.2,
+      "comment": "Great lab sessions, but exams are very challenging."
+    },
+    {
+      "name": "Prof. David Kim",
+      "subject": "Mathematics",
+      "rating": 3.7,
+      "comment": "Clear explanations, but moves through material quickly."
+    },
+    {
+      "name": "Dr. Lisa Brown",
+      "subject": "Psychology",
+      "rating": 4.9,
+      "comment": "Passionate about the subject. Makes class enjoyable!"
+    },
+    {
+      "name": "Prof. James Wilson",
+      "subject": "Economics",
+      "rating": 3.3,
+      "comment": "Knowledgeable, but not very approachable."
+    },
+    {
+      "name": "Dr. Maria Garcia",
+      "subject": "Chemistry",
+      "rating": 4.6,
+      "comment": "Excellent at breaking down complex topics."
+    },
+    {
+      "name": "Prof. Thomas Wright",
+      "subject": "Philosophy",
+      "rating": 3.8,
+      "comment": "Thought-provoking discussions, but grading can be subjective."
+    },
+    {
+      "name": "Dr. Rachel Green",
+      "subject": "Environmental Science",
+      "rating": 4.4,
+      "comment": "Engaging field trips and practical applications."
+    },
+    {
+      "name": "Prof. Daniel Martinez",
+      "subject": "Sociology",
+      "rating": 3.5,
+      "comment": "Interesting material, but lectures can be disorganized."
+    },
+    {
+      "name": "Dr. Jessica Lee",
+      "subject": "Neuroscience",
+      "rating": 4.7,
+      "comment": "Challenging course, but Dr. Lee makes it accessible."
+    },
+    {
+      "name": "Prof. William Turner",
+      "subject": "Art History",
+      "rating": 3.9,
+      "comment": "Passionate about art, but heavy workload."
+    },
+    {
+      "name": "Dr. Kevin Patel",
+      "subject": "Engineering",
+      "rating": 4.1,
+      "comment": "Great industry insights, but tough grader."
+    },
+    {
+      "name": "Prof. Laura Simpson",
+      "subject": "Political Science",
+      "rating": 3.2,
+      "comment": "Knowledgeable, but tends to favor certain viewpoints."
+    },
+    {
+      "name": "Dr. Christopher Lee",
+      "subject": "Geology",
+      "rating": 4.3,
+      "comment": "Excellent field trips, brings the subject to life."
+    },
+    {
+      "name": "Prof. Olivia Carter",
+      "subject": "Linguistics",
+      "rating": 3.6,
+      "comment": "Interesting topics, but assignments can be vague."
+    },
+    {
+      "name": "Dr. Mark Johnson",
+      "subject": "Astronomy",
+      "rating": 4.8,
+      "comment": "Captivating lectures, makes complex concepts understandable."
+    },
+    {
+      "name": "Prof. Sophia Nguyen",
+      "subject": "Anthropology",
+      "rating": 3.4,
+      "comment": "Engaging discussions, but lectures can be repetitive."
+    },
+    {
+      "name": "Dr. Alan Robbins",
+      "subject": "Statistics",
+      "rating": 3.7,
+      "comment": "Clear explanations, but pace can be too fast."
+    },
+    {
+      "name": "Prof. Natalie Wong",
+      "subject": "Marketing",
+      "rating": 4.2,
+      "comment": "Great real-world examples, helpful for career prospects."
+    },
+    {
+      "name": "Dr. Eric Sanders",
+      "subject": "Organic Chemistry",
+      "rating": 3.9,
+      "comment": "Tough course, but Dr. Sanders is always willing to help."
+    },
+    {
+      "name": "Prof. Grace Miller",
+      "subject": "Music Theory",
+      "rating": 4.5,
+      "comment": "Passionate and inspiring. Makes theory enjoyable."
+    },
+    {
+      "name": "Dr. Patrick O'Brien",
+      "subject": "Microbiology",
+      "rating": 3.8,
+      "comment": "Interesting lab work, but lectures can be dry."
+    },
+    {
+      "name": "Prof. Samantha Lewis",
+      "subject": "World Languages",
+      "rating": 4.6,
+      "comment": "Excellent teaching methods, makes learning fun."
+    },
+    {
+      "name": "Dr. Benjamin Harris",
+      "subject": "Electrical Engineering",
+      "rating": 3.5,
+      "comment": "Knowledgeable, but can be impatient with questions."
+    },
+    {
+      "name": "Prof. Emma Thompson",
+      "subject": "Film Studies",
+      "rating": 4.4,
+      "comment": "Insightful analysis and engaging discussions."
+    },
+    {
+      "name": "Dr. Ryan Clark",
+      "subject": "Nutrition",
+      "rating": 3.3,
+      "comment": "Informative, but could use more practical applications."
+    },
+    {
+      "name": "Prof. Angela Davis",
+      "subject": "Women's Studies",
+      "rating": 4.7,
+      "comment": "Thought-provoking and empowering lectures."
+    },
+    {
+      "name": "Dr. Jason Kim",
+      "subject": "Biochemistry",
+      "rating": 3.6,
+      "comment": "Very knowledgeable, but explanations can be confusing."
+    },
+    {
+      "name": "Prof. Linda Martinez",
+      "subject": "Education",
+      "rating": 4.3,
+      "comment": "Practical teaching strategies, very helpful for future educators."
+    },
+    {
+      "name": "Dr. Andrew Wilson",
+      "subject": "Quantum Physics",
+      "rating": 3.9,
+      "comment": "Brilliant mind, but lectures can be hard to follow."
+    },
+    {
+      "name": "Prof. Cynthia Baker",
+      "subject": "Public Health",
+      "rating": 4.5,
+      "comment": "Engaging lectures with relevant, current examples."
+    },
+    {
+      "name": "Dr. Timothy Green",
+      "subject": "Botany",
+      "rating": 3.7,
+      "comment": "Interesting field work, but lectures need more structure."
+    },
+    {
+      "name": "Prof. Karen White",
+      "subject": "Business Ethics",
+      "rating": 4.1,
+      "comment": "Thought-provoking case studies, fair grader."
+    },
+    {
+      "name": "Dr. Frank Lopez",
+      "subject": "Mechanical Engineering",
+      "rating": 3.4,
+      "comment": "Knowledgeable, but could improve teaching style."
+    },
+    {
+      "name": "Prof. Helen Chang",
+      "subject": "Comparative Literature",
+      "rating": 4.6,
+      "comment": "Passionate and insightful. Broadens literary perspectives."
+    },
+    {
+      "name": "Dr. George Martin",
+      "subject": "Genetics",
+      "rating": 3.8,
+      "comment": "Challenging material, but Dr. Martin is helpful in office hours."
+    },
+    {
+      "name": "Prof. Julia Sanchez",
+      "subject": "International Relations",
+      "rating": 4.2,
+      "comment": "Engaging discussions on current global issues."
+    },
+    {
+      "name": "Dr. Paul Anderson",
+      "subject": "Physical Chemistry",
+      "rating": 3.5,
+      "comment": "Very rigorous course. Dr. Anderson knows his stuff but can be intimidating."
+    },
+    {
+      "name": "Prof. Michelle Lee",
+      "subject": "Graphic Design",
+      "rating": 4.8,
+      "comment": "Creative projects and valuable industry insights."
+    },
+    {
+      "name": "Dr. Edward Brown",
+      "subject": "Astrophysics",
+      "rating": 3.9,
+      "comment": "Fascinating subject matter, but assignments can be unclear."
+    },
+    {
+      "name": "Prof. Catherine Ross",
+      "subject": "Social Work",
+      "rating": 4.4,
+      "comment": "Compassionate teacher with practical, real-world approach."
+    },
+    {
+      "name": "Dr. Anthony Nguyen",
+      "subject": "Immunology",
+      "rating": 3.7,
+      "comment": "Knowledgeable, but lectures can be hard to follow."
+    },
+    {
+      "name": "Prof. Rebecca Taylor",
+      "subject": "Creative Writing",
+      "rating": 4.7,
+      "comment": "Inspiring and supportive. Helps students find their voice."
+    },
+    {
+      "name": "Dr. Samuel Cohen",
+      "subject": "Analytical Chemistry",
+      "rating": 3.6,
+      "comment": "Tough grader, but very knowledgeable in the field."
+    },
+    {
+      "name": "Prof. Elizabeth Ward",
+      "subject": "Human Rights Law",
+      "rating": 4.5,
+      "comment": "Passionate advocate. Lectures are engaging and thought-provoking."
+    },
+    {
+      "name": "Dr. Victor Ramirez",
+      "subject": "Robotics",
+      "rating": 4.0,
+      "comment": "Cutting-edge knowledge, but could improve explanations."
+    }
+  ]
+}
