@@ -1,55 +1,166 @@
 import { NextResponse } from "next/server";
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { Pinecone } from "@pinecone-database/pinecone";
+import fetch from "node-fetch";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const systemPrompt = "You are TravelMate, a highly knowledgeable and friendly travel planner bot designed to assist users in planning their trips. Your role is to provide personalized travel recommendations, help with booking flights and accommodations, suggest activities and attractions, and offer travel tips and advice. You have access to real-time information about destinations, weather, flights, and accommodations. You should also be able to answer questions about travel documents, local customs, and provide tips on how to make the most of the trip. Your responses should be accurate, informative, and tailored to the user's preferences and needs. Always be polite, engaging, and enthusiastic about helping users explore the world.";
+const apiKey = process.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(apiKey);
+const MODEL = "intfloat/multilingual-e5-large";
+const HUGGINGFACE_API_TOKEN = process.env.HUGGINGFACE_API_TOKEN;
+
+const index = new Pinecone({
+  apiKey: process.env.PINECONE_API_KEY,
+})
+  .index("rag-index")
+  .namespace("ns1");
+
+const systemPrompt = `
+    You are an intelligent assistant for the RateMyProfessor system. Your primary role is to help students find the best professors based on their specific queries. Using the Retrieval-Augmented Generation (RAG) approach, you will retrieve relevant information about professors and generate responses to student questions.
+
+    ### Instructions:
+
+    1. **Retrieve Relevant Information:**
+    - Given a student's query, use the RAG model to search and retrieve relevant information from the database of professors and their reviews.
+    - Ensure that the information retrieved is pertinent to the student's query.
+
+    2. **Generate Response:**
+    - For each query, select the top 3 professors who best match the student's criteria.
+    - Provide a review for each of these professors, including key details such as their name, department, rating, and notable feedback from students.
+    - Format the response clearly, listing the top 3 professors in order of relevance.
+
+    3. **Response Format:**
+    - **Query:** Repeat the student's query for context.
+    - **Top 3 Professors:**
+        1. **Professor Name:** [Name]
+            - **Department:** [Department]
+            - **Rating:** [Rating]
+            - **Review:** [Brief Review of notable feedback]
+        2. **Professor Name:** [Name]
+            - **Department:** [Department]
+            - **Rating:** [Rating]
+            - **Review:** [Brief Review of notable feedback]
+        3. **Professor Name:** [Name]
+            - **Department:** [Department]
+            - **Rating:** [Rating]
+            - **Review:** [Brief Review of notable feedback]
+
+    4. **Quality Assurance:**
+    - Ensure that the information provided is accurate and relevant to the student's query.
+    - If multiple professors have similar ratings, choose those with the most positive or detailed feedback.
+
+    ### Example:
+
+    **Query:** "I am looking for a professor in Computer Science who is known for their engaging lectures and clear explanations."
+
+    **Top 3 Professors:**
+    1. **Professor Alice Johnson**
+    - **Department:** Computer Science
+    - **Rating:** 4.8/5
+    - **Review:** Known for interactive lectures and practical examples. Highly recommended for her clarity in teaching complex topics.
+
+    2. **Professor Bob Smith**
+    - **Department:** Computer Science
+    - **Rating:** 4.7/5
+    - **Review:** Praised for his engaging teaching style and thorough explanations. Students appreciate his support outside of class.
+
+    3. **Professor Carol Davis**
+    - **Department:** Computer Science
+    - **Rating:** 4.6/5
+    - **Review:** Valued for her clear and concise lectures. Students find her approachable and helpful.
+`;
+
+async function fetchEmbeddingsWithRetry(text, retries = 5) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const response = await fetch(
+        `https://api-inference.huggingface.co/models/${MODEL}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${HUGGINGFACE_API_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ inputs: text }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        if (response.status === 503) {
+          console.warn(`Model is loading, retrying (${attempt}/${retries})...`);
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        } else {
+          console.error("Error response body:", errorBody);
+          throw new Error(`Failed to fetch embeddings: ${response.statusText}`);
+        }
+      } else {
+        return await response.json();
+      }
+    } catch (error) {
+      console.error(`Attempt ${attempt} failed: ${error.message}`);
+      if (attempt === retries) {
+        throw error;
+      }
+    }
+  }
+}
 
 export async function POST(req) {
   try {
-    const { message } = await req.json();
-    const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const data = await req.json();
+    const lastMessage = data[data.length - 1];
+    const text = lastMessage.content;
 
-    const result = await model.generateContentStream({
-      contents: [
-        {
-          role: "model",
-          parts: [
-            {
-              text: systemPrompt,
-            },
-          ],
-        },
-        {
-          role: "user",
-          parts: [
-            {
-              text: message,
-            },
-          ],
-        },
-      ],
-      generationConfig: {
-        maxOutputTokens: 1000,
-        temperature: 0.1,
-      },
+    const embeddingResponse = await fetchEmbeddingsWithRetry(text);
+
+    if (!embeddingResponse) {
+      throw new Error("Failed to retrieve embeddings.");
+    }
+
+    const results = await index.query({
+      topK: 3,
+      includeMetadata: true,
+      vector: embeddingResponse,
     });
 
-    const stream = new ReadableStream({
-      async start(controller) {
-        for await (const chunk of result.stream) {
-          controller.enqueue(chunk.text());
-        }
-        controller.close();
-      },
+    let resultString = "\n\nReturned results from vector db (done automatically):";
+    results.matches.forEach((match) => {
+      resultString += `
+        Professor: ${match.id}
+        Review: ${match.metadata.review}
+        Subject: ${match.metadata.subject}
+        Stars: ${match.metadata.stars}
+        \n\n
+      `;
     });
 
-    return new Response(stream, {
-      headers: { "Content-Type": "text/plain" },
+    const lastMessageContent = lastMessage.content + resultString;
+    const lastDataWithoutLastMessage = data.slice(0, data.length - 1);
+
+    const model = await genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: systemPrompt,
     });
+
+    const previousMessages = lastDataWithoutLastMessage
+      .map((message) => message.content)
+      .join("\n");
+
+    const prompt = `${previousMessages}\n\n${lastMessageContent}`;
+
+    const completion = await model.generateContent(prompt);
+
+    const response = await completion.response;
+    const output = await response.text()
+      .replace(/\*/g, "")
+      .replace(/Query:.*?\n/, "")
+      .replace(/(\d+\.\s)/g, "\n$1");
+
+    return NextResponse.json({ content: output });
   } catch (error) {
-    console.error("Error fetching chat response:", error);
+    console.error("Error processing request:", error);
     return NextResponse.json(
-      { error: "Error fetching chat response" },
+      { error: error.message || "An unknown error occurred" },
       { status: 500 }
     );
   }
