@@ -1,3 +1,7 @@
+## Headstarter Project 5
+Rate my professor support agent platform built using Next.js, Python, Pinecone, Gemini and Huggingface embeddings. 
+credits: https://medium.com/@preciousmbaekwe/how-to-integrate-embeddings-with-gemini-and-hugging-face-using-pinecone-352838dfcad7
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
