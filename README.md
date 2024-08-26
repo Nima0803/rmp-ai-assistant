@@ -20,7 +20,7 @@ bun dev
 ```
 
 ## Deployed on Vercel 
-[(ratemyprof-feedaaas-projects.vercel.app)]
+[check out our website](ratemyprof-feedaaas-projects.vercel.app)
 
 ## Contributors
 
