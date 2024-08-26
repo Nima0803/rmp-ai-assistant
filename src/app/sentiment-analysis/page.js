@@ -232,7 +232,7 @@ export default function SentimentAnalysis() {
           padding: '20px',
         }}
       >
-         <h2 style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.6)' }}>Mean Sentiment Score vs Professor's Sentiment Score</h2>
+         <h2 style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.6)' }}>Mean Sentiment Score vs Professors Sentiment Score</h2>
         <ResponsiveContainer>
           <ScatterChart>
             <CartesianGrid strokeDasharray="3 3" />
